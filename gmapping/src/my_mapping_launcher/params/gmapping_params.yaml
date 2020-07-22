@@ -1,0 +1,6 @@
+# Gmapping Config
+
+xmin: -50.0
+ymin: -50.0
+xmax: 50.0
+ymax: 50.0

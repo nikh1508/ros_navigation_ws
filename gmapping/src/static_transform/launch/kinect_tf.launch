@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="kinect_tf" 
+          args="0.1 0 0.15 0 0 0 base_link kinect_link 10">
+    </node>
+</launch>
