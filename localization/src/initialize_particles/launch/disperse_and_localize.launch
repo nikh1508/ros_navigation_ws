@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="initialize_particles" name="husky_localize" type="square_move.py" output="screen"/>
+</launch>
