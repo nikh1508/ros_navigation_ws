@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="use_map_topic" default="true"/>
+    <arg name="scan_topic" default="scan" />
+<!-- 
+    <arg name="map_file" default="$(find my_amcl_launcher)/maps/my_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="screen"/> -->
+
+    <node pkg="amcl" type="amcl" name="amcl">
+    <!-- 
+        odom_model_type (default: "diff"): It puts the odometry model to use. It can be "diff," "omni," "diff-corrected," or "omni-corrected."
+        odom_frame_id (default: "odom"): Indicates the frame associated with odometry.
+        base_frame_id (default: "base_link"): Indicates the frame associated with the robot base.
+        global_frame_id (default: "map"): Indicates the name of the coordinate frame published by the localization system.
+        use_map_topic (default: false): Indicates if the node gets the map data from the topic or from a service call.
+     -->
+        <param name="use_map_topic" value="$(arg use_map_topic)"/>
+        <!-- Publish scans from best pose at a max of 10 Hz -->
+        <param name="odom_model_type" value="diff"/>
+        <param name="odom_alpha5" value="0.1"/>
+        <param name="odom_frame_id" value="odom"/>
+    <!-- 
+        min_particles (default: 100): Sets the minimum allowed number of particles for the filter.
+        max_particles (default: 5000): Sets the maximum allowed number of particles for the filter.
+        kld_err (default: 0.01): Sets the maximum error allowed between the true distribution and the estimated distribution.
+        update_min_d (default: 0.2): Sets the linear distance (in meters) that the robot has to move in order to perform a filter update.
+        update_min_a (default: π/6.0): Sets the angular distance (in radians) that the robot has to move in order to perform a filter update.
+        resample_interval (default: 2): Sets the number of filter updates required before resampling.
+        transform_tolerance (default: 0.1): Time (in seconds) with which to post-date the transform that is published, to indicate that this transform is valid into the future.
+        gui_publish_rate (default: -1.0): Maximum rate (in Hz) at which scans and paths are published for visualization. If this value is -1.0, this function is disabled.
+     -->
+        <param name="gui_publish_rate" value="10.0"/>
+        <param name="min_particles" value="500"/>
+        <param name="max_particles" value="2000"/>
+        <param name="update_min_d" value="0.25"/>
+        <param name="update_min_a" value="0.2"/>
+        <param name="resample_interval" value="1"/>
+        <param name="kld_err" value="0.05"/>
+        <param name="kld_z" value="0.99"/>
+        <param name="odom_alpha1" value="0.2"/>
+        <param name="odom_alpha2" value="0.2"/>
+    <!-- Increase tolerance because the computer can get quite busy -->
+        <param name="transform_tolerance" value="1.0"/>
+    <!-- 
+        laser_min_range (default: -1.0): Minimum scan range to be considered; -1.0 will cause the laser's reported minimum range to be used.
+        laser_max_range (default: -1.0): Maximum scan range to be considered; -1.0 will cause the laser's reported maximum range to be used.
+        laser_max_beams (default: 30): How many evenly-spaced beams in each scan to be used when updating the filter.
+        laser_z_hit (default: 0.95): Mixture weight for the z_hit part of the model.
+        laser_z_short (default: 0.1): Mixture weight for the z_short part of the model.
+        laser_z_max (default: 0.05): Mixture weight for the z_max part of the model.
+        laser_z_rand (default: 0.05): Mixture weight for the z_rand part of the model.
+    -->
+        <param name="laser_max_beams" value="60"/>
+        <param name="laser_max_range" value="12.0"/>
+        <!-- translation std dev, m -->
+        <param name="odom_alpha3" value="0.2"/>
+        <param name="odom_alpha4" value="0.2"/>
+        <param name="laser_z_hit" value="0.5"/>
+        <param name="laser_z_short" value="0.05"/>
+        <param name="laser_z_max" value="0.05"/>
+        <param name="laser_z_rand" value="0.5"/>
+        <param name="laser_sigma_hit" value="0.2"/>
+        <param name="laser_lambda_short" value="0.1"/>
+        <param name="laser_model_type" value="likelihood_field"/>
+        <param name="laser_likelihood_max_dist" value="2.0"/>
+        <!-- <param name="laser_model_type" value="beam"/> -->
+
+        <param name="recovery_alpha_slow" value="0.0"/>
+        <param name="recovery_alpha_fast" value="0.0"/>
+        <remap from="scan" to="$(arg scan_topic)"/>    
+    </node>
+
+</launch>
