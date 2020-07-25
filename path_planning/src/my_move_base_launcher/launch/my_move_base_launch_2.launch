@@ -3,9 +3,9 @@
 
   <arg name="no_static_map" default="false"/>
 
-  <!-- <arg name="base_global_planner" default="navfn/NavfnROS"/> -->
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
   <!-- <arg name="base_global_planner" default="carrot_planner/CarrotPlanner"/> -->
-  <arg name="base_global_planner" default="global_planner/GlobalPlanner"/>
+  <!-- <arg name="base_global_planner" default="global_planner/GlobalPlanner"/> -->
   <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
   <!-- <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/> -->
 
@@ -16,11 +16,11 @@
     <rosparam file="$(find my_move_base_launcher)/params/my_move_base_params.yaml" command="load"/>
 
     <!-- observation sources located in costmap_common.yaml -->
-    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find my_move_base_launcher)/params/common_costmap_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find my_move_base_launcher)/params/common_costmap_params.yaml" command="load" ns="local_costmap" />
 
     <!-- local costmap, needs size -->
-    <rosparam file="$(find husky_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find my_move_base_launcher)/params/local_costmap_params.yaml" command="load" ns="local_costmap" />
     <param name="local_costmap/width" value="10.0"/>
     <param name="local_costmap/height" value="10.0"/>
 

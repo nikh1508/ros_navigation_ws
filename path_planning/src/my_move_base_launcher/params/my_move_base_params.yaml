@@ -1,5 +1,8 @@
-controller_frequency: 10.0
+controller_frequency: 5.0
 recovery_behaviour_enabled: true
+# Rotate Recovery Parameters
+# /sim_granularity (double, default: 0.017): The distance, in radians, between checks for obstacles when checking if an in-place rotation is safe. Defaults to 1 degree.
+# /frequency (double, default: 20.0): The frequency, in HZ, at which to send velocity commands to the mobile base.
 
 NavfnROS:
   allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
