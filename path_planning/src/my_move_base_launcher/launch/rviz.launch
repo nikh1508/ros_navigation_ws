@@ -1,0 +1,3 @@
+<launch>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_move_base_launcher)/rviz_config/path_planning_rviz.config.rviz"/>
+</launch>
