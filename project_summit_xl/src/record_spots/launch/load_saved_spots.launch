@@ -1,0 +1,4 @@
+<launch>
+    <arg name="file"/>
+    <rosparam file="$(find record_spots)/saved_spots/$(arg file)" command="load" ns="/recorded_spots"/>
+</launch>
